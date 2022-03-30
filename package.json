@@ -1,0 +1,34 @@
+{
+  "name": "verify-url-status-tool",
+  "version": "1.0.0",
+  "description": "A business tool to verify the status of a URL. Business URL changes all the time, for reasons such as M&A, rebranding, defunct, etc. This tool will help maintain business data for a business database. ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nykfeng/verify-URL-status-tool.git"
+  },
+  "keywords": [
+    "detect",
+    "URL",
+    "URL",
+    "status"
+  ],
+  "author": "Lifeng Huang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nykfeng/verify-URL-status-tool/issues"
+  },
+  "homepage": "https://github.com/nykfeng/verify-URL-status-tool#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "express": "^4.17.3",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
