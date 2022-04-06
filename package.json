@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A business tool to verify the status of a URL. Business URL changes all the time, for reasons such as M&A, rebranding, defunct, etc. This tool will help maintain business data for a business database. ",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js"
@@ -26,6 +27,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "express": "^4.17.3",
+    "node-html-parser": "^5.3.3",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

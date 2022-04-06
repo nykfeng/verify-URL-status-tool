@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Montserrat:wght@100;200;300;400;500&family=Roboto:wght@300;400;500&family=Secular+One&display=swap");
+
+
+:root {
+    font-size: 62.5%;
+    font-family: "Roboto", sans-serif;
+  
+    --main-color: #00b4d8;
+    --secondary-color: #16e7dd;
+    --main-opacity: #70cce0;
+    --primary-gray-color: #eeeded;
+    --secondary-gray-color: #888888;
+  
+    --variety-color-purple: #755eaa;
+    --background-blue: #e3ebfc;
+    --dark-blue: #1863fa;
+    --transparent-gray: rgba(105, 105, 105, 0.514);
+    --stock-green: #17a089;
+    --stock-red: #B33030;
+    
+    --warning-red: #a10000;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  a,
+  a:hover,
+  a:focus,
+  a:active {
+    text-decoration: none;
+    color: inherit;
+  }
+
+
+  .flex {
+      display: flex;
+  }
+
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .result-row {
+      font-size: 1.6rem;
+      gap: 5rem;
+      padding: 1rem;
+  }

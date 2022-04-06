@@ -1,6 +1,8 @@
-const axios = require("axios");
+// const axios = require("axios");
+import axios from "axios";
+import { parse } from "node-html-parser";
 
-module.exports.get = async function (url) {
+async function get(url) {
   console.log("Reading URL: ", url);
 
   //   axios
@@ -43,6 +45,15 @@ module.exports.get = async function (url) {
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36",
       },
     });
+    console.log("respsonse: ");
+    // console.log(res.data);
+
+    const htmlString = res.data;
+
+    const doc = parse(htmlString);
+
+    console.log(doc.childNodes[1]);
+
     return successStatus(res);
   } catch (error) {
     if (error.response) {
@@ -61,7 +72,7 @@ module.exports.get = async function (url) {
       return;
     }
   }
-};
+}
 
 function responseStatus(response) {
   console.log("status");
@@ -77,8 +88,8 @@ function responseStatus(response) {
   status.code = response.status;
   status.message = response.statusText;
   status.url =
-    (response.request?.host ||
-    response._currentRequest.res.host) + response.request?.path;
+    (response.request?.host || response._currentRequest.res.host) +
+    response.request?.path;
   console.log(status);
   return status;
 }
@@ -116,3 +127,7 @@ function successStatus(response) {
   status.url = response.request.res.responseUrl;
   return status;
 }
+
+export default {
+  get,
+};

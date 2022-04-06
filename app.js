@@ -1,22 +1,34 @@
-const xlsx = require("xlsx");
-const axios = require("axios");
-const visit = require("./modules/visit.js");
+// const xlsx = require("xlsx");
+// const visit = require("./modules/visit.js");
 
-const express = require("express");
+
+import visit from "./modules/visit.js";
+import axios from "axios";
+import express from "express";
+
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+
+
 
 const PORT = process.env.PORT || 5252;
 
 let url = "http://www.mediaradar.com";
 
 
-app.get("/", (req, res) => {
-  res.send("Here we go!");
-});
+app.use(express.static("./public"));
+
 
 app.get("/url", async (req, res) => {
   res.json(await visit.get(url));
 });
+
+app.post('/url', async(req, res)=> {
+  console.log('Req.body is ');
+  console.log(req.body);
+
+  res.json(await visit.get(url));
+})
 
 // const wb = xlsx.readFile("M&A Transaction List.csv", { cellDates: true });
 
