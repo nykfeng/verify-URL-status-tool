@@ -47,25 +47,20 @@ async function get(url) {
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36",
       },
     });
-    console.log("respsonse: ");
+    // console.log("respsonse: ");
     // console.log(res.data);
 
-    console.log(util.inspect(res, {showHidden: false, depth: null, colors: true}))
+    // console.log(util.inspect(res, {showHidden: false, depth: null, colors: true}))
 
 
-    const htmlString = res.data;
 
-    const doc = parse(htmlString);
-
-    // console.log(doc);
-    // console.log(util.inspect(doc, {showHidden: false, depth: null, colors: true}))
 
     return successStatus(res);
   } catch (error) {
     if (error.response) {
       console.log("response error -------------------------");
 
-      console.log(util.inspect(error, {showHidden: false, depth: null, colors: true}))
+      // console.log(util.inspect(error, {showHidden: false, depth: null, colors: true}))
 
       return responseStatus(error.response);
     } else if (error.request) {
@@ -104,8 +99,8 @@ function responseStatus(response) {
 
 function requestStatus(request) {
   console.log("status");
-  console.log(request._currentRequest.res.statusCode);
-  console.log(request._currentRequest.res.statusMessage);
+  console.log(request._currentRequest.res?.statusCode || '404');
+  console.log(request._currentRequest.res?.statusMessage || 'Page Not Found');
 
   console.log("host name");
   console.log(request._currentUrl);
@@ -114,8 +109,8 @@ function requestStatus(request) {
 
   const status = {};
 
-  status.code = request._currentRequest.res.statusCode;
-  status.message = request._currentRequest.res.statusMessage;
+  status.code = request._currentRequest.res?.statusCode || '404';
+  status.message = request._currentRequest.res?.statusMessage || 'Page Not Found';
   status.url = request._currentUrl;
   return status;
 }

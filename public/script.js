@@ -3,24 +3,33 @@ const fileEl = document.querySelector("#excel-File");
 const uploadBtn = document.querySelector(".upload-btn");
 const resultTable = document.querySelector(".section-result");
 
-let fileData = [];
+// buttons
+const visitBtn = document.querySelector(".visit-btn");
+const stopBtn = document.querySelector(".stop-visit-btn");
+
+let fileData;
 // submitEL.addEventListener("click", function () {
 //   sendURL("https://www.mediaradar.com");
 // });
 
 // Post request to send url to server and check
-async function sendURL(urlBody) {
+async function sendURL(urlToVisit) {
   const url = "/url";
-  const data = {
-    url: urlBody,
-  };
-  await fetch(url, {
+  const data = new URLSearchParams();
+  for (const [key, value] of Object.entries({ url: urlToVisit })) {
+    data.append(key, value);
+  }
+  responseValue = await fetch(url, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/x-www-form-urlencoded  ",
     }),
     body: data,
   });
+
+  console.log("Response value: ");
+  // console.log(await responseValue.json());
+  return responseValue.json();
 }
 
 function validURL(str) {
@@ -38,10 +47,14 @@ function validURL(str) {
 
 fileEl.addEventListener("change", function () {
   readXlsxFile(fileEl.files[0]).then(function (data) {
+    console.log("Data from file is ");
     console.log(data);
     fileData = data.map((row, index) => {
       generateTableRow(row, index);
+      return row;
     });
+    console.log("file data is ");
+    console.log(fileData);
   });
 });
 
@@ -54,10 +67,16 @@ function rowHTML(row, index) {
   const html = `
   <div class="result-row flex" data-row="${index}">
                 <div class="brand-id original-col col">${row[0]}</div>
-                <div class="brand original-col col" data-hover="${row[1]}">${row[1]}</div>
-                <div class="brand-url original-col col" data-hover="${row[2]}">${row[2]}</div>
+                <div class="brand original-col col" data-hover="${row[1]}">${
+    row[1]
+  }</div>
+                <div class="brand-url original-col col" data-hover="${
+                  row[2]
+                }">${row[2]}</div>
 
-                <div class="brand-url-domain col">${validURL(row[2])? getDomain(row[2]) : "Not Valid"}</div>
+                <div class="brand-url-domain col">${
+                  validURL(row[2]) ? getDomain(row[2]) : "Not Valid"
+                }</div>
                 <div class="result-status-code col"></div>
                 <div class="result-message col"></div>
                 <div class="result-url col"></div>
@@ -69,8 +88,18 @@ function rowHTML(row, index) {
 }
 
 function getDomain(url) {
-  const domain = (new URL(url));
-  return domain.hostname.replace('www.','')
+  const domain = new URL(url);
+  return domain.hostname.replace("www.", "");
 }
 
-console.log(fileData);
+visitBtn.addEventListener("click", function () {
+  if (fileData.length != 0) {
+    startVisitingUrl(fileData[0][2]);
+  }
+  // startVisitingUrl("www.ap555ple.com");
+});
+
+async function startVisitingUrl(url) {
+  const urlData = await sendURL(url);
+  console.log(urlData);
+}

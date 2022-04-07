@@ -27,6 +27,8 @@ app.get("/url", async (req, res) => {
 app.post('/url', async(req, res)=> {
   console.log('Req.body is ');
   console.log(req.body);
+  // console.log(req);
+  const url = req.body.url;
 
   res.json(await visit.get(url));
 })
