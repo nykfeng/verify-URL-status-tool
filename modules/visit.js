@@ -1,6 +1,8 @@
 // const axios = require("axios");
 import axios from "axios";
 import { parse } from "node-html-parser";
+import util from 'util';
+import fetch from 'node-fetch';
 
 async function get(url) {
   console.log("Reading URL: ", url);
@@ -48,16 +50,22 @@ async function get(url) {
     console.log("respsonse: ");
     // console.log(res.data);
 
+    console.log(util.inspect(res, {showHidden: false, depth: null, colors: true}))
+
+
     const htmlString = res.data;
 
     const doc = parse(htmlString);
 
-    console.log(doc.childNodes[1]);
+    // console.log(doc);
+    // console.log(util.inspect(doc, {showHidden: false, depth: null, colors: true}))
 
     return successStatus(res);
   } catch (error) {
     if (error.response) {
       console.log("response error -------------------------");
+
+      console.log(util.inspect(error, {showHidden: false, depth: null, colors: true}))
 
       return responseStatus(error.response);
     } else if (error.request) {

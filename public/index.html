@@ -13,24 +13,94 @@
 <body>
     <header>
 
-        <h1>A tool to verify to the status of whether a URL is still working</h1>
+        <h1 class="title">A tool to verify to the status of whether a URL is still working</h1>
+        <p class="app-description">This is a business tool used to verify a list of brand URLs current status. The app
+            run through each URL, and return whether the URL is still working. It will return a status code and if
+            the URL redirects, it will return the new URL.</p>
     </header>
 
     <main>
 
-        <section class="upload"></section>
+        <section class="section-upload flex">
+            <div class="format-description flex-column">
+                <p>Upload your Excel file with the following format:</p>
+                <div class="format-example">
+                    <table class="example-table">
+                        <tr>
+                            <th>Brand ID</th>
+                            <th>Brand Name</th>
+                            <th>Brand URL</th>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>Apple, Inc.</td>
+                            <td>https://www.apple.com</td>
+                        </tr>
+                        <tr>
+                            <td>789456</td>
+                            <td>MediaRadar, Inc.</td>
+                            <td>https://www.mediardar.com</td>
+                        </tr>
+                        <tr>
+                            <td>1753951</td>
+                            <td>Netflix</td>
+                            <td>https://www.netflix.com</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
-        <section class="result">
+            <div class="upload-action flex-column">
+                <p>Customize your Excel columns (Checked means included):</p>
+                <form>
+                    <input type="radio" id="brandId" name="column-headers-id" value="Brand ID">
+                      <label for="html">Brand ID</label><br>
+                    <input type="radio" id="brandName" name="column-headers-name" value="Brand Name">
+                      <label for="html">Brand Name</label><br>
+                    <input type="radio" id="brandUrl" name="column-headers-url" value="Brand URL">
+                      <label for="html">Brand URL</label><br>
+                </form>
+                <form action="">
+                    <input type="file" id="myFile" name="filename">
+                    <input type="submit" class="upload-btn" value="upload">
+
+                </form>
+            </div>
+
+        </section>
+
+        <section class="section-result">
+            <div class="result-row flex">
+                <div class="brand-id original-col col header-col">Brand ID</div>
+                <div class="brand original-col col header-col">Brand Name</div>
+                <div class="brand-url original-col col header-col">Brand URL</div>
+
+                <div class="result-status-code col header-col">Status Code</div>
+                <div class="result-message col header-col">Status Message</div>
+                <div class="result-url col header-col">Landing URL</div>
+                <button class="row-submit col header-col">Submit</button>
+            </div>
 
             <div class="result-row flex">
-                <div class="brand-id">123123</div>
-                <div class="brand">Apple</div>
-                <div class="brand-url">https://www.apple.com</div>
+                <div class="brand-id original-col col">1231222</div>
+                <div class="brand original-col col">Apple</div>
+                <div class="brand-url original-col col">https://www.apple.com</div>
 
-                <div class="result-status-code">200</div>
-                <div class="result-message">Status OK</div>
-                <div class="result-url">https://www.apple.com</div>
-                <button class="row-submit">Submit</button>
+                <div class="result-status-code col">200</div>
+                <div class="result-message col">Status OK</div>
+                <div class="result-url col">https://www.apple.com</div>
+                <button class="row-submit col">Submit</button>
+            </div>
+
+            <div class="result-row flex">
+                <div class="brand-id original-col col">1231222</div>
+                <div class="brand original-col col">Apple</div>
+                <div class="brand-url original-col col">https://www.apple.com</div>
+
+                <div class="result-status-code col">200</div>
+                <div class="result-message col">Status OK</div>
+                <div class="result-url col">https://www.apple.com</div>
+                <button class="row-submit col">Submit</button>
             </div>
 
         </section>

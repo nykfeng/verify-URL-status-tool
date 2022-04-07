@@ -1,54 +1,156 @@
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Montserrat:wght@100;200;300;400;500&family=Roboto:wght@300;400;500&family=Secular+One&display=swap");
 
-
 :root {
-    font-size: 62.5%;
-    font-family: "Roboto", sans-serif;
-  
-    --main-color: #00b4d8;
-    --secondary-color: #16e7dd;
-    --main-opacity: #70cce0;
-    --primary-gray-color: #eeeded;
-    --secondary-gray-color: #888888;
-  
-    --variety-color-purple: #755eaa;
-    --background-blue: #e3ebfc;
-    --dark-blue: #1863fa;
-    --transparent-gray: rgba(105, 105, 105, 0.514);
-    --stock-green: #17a089;
-    --stock-red: #B33030;
-    
-    --warning-red: #a10000;
-  }
-  
-  *,
-  *::before,
-  *::after {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-  
-  a,
-  a:hover,
-  a:focus,
-  a:active {
-    text-decoration: none;
-    color: inherit;
-  }
+  font-size: 62.5%;
+  font-family: "Montserrat", sans-serif;
+
+  --main-color: #00b4d8;
+  --secondary-color: #16e7dd;
+  --main-opacity: #70cce0;
+  --primary-gray-color: #eeeded;
+  --secondary-gray-color: #888888;
+
+  --variety-color-purple: #755eaa;
+  --background-blue: #e3ebfc;
+  --dark-blue: #1863fa;
+  --transparent-gray: rgba(105, 105, 105, 0.514);
+  --stock-green: #17a089;
+  --stock-red: #b33030;
+
+  --warning-red: #a10000;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ====================== header style ========================= */
+/* ====================== ------------ ========================= */
+
+header {
+  padding: 2rem;
+  background-color: #00b4d8;
+  color: #f7f7f7;
+}
+
+header h1 {
+  font-size: 2rem;
+  max-width: 100rem;
+  margin-bottom: 2.5rem;
+}
+
+header p {
+  max-width: 100rem;
+}
+
+/* ====================== upload area style ========================= */
+/* ====================== ------------ ========================= */
+.section-upload {
+  padding: 2rem;
+  background-color: #f7f7f7;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.format-description,
+.upload-action {
+  background-color: #fff;
+  font-size: 1.4rem;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.upload-action input {
+  margin-bottom: 1rem;
+}
+
+.example-table th,
+.example-table td {
+  padding: 0.5rem;
+  border: 1px dashed var(--stock-green);
+}
+
+.upload-btn {
+  padding: 0.5rem 0.8rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
 
 
-  .flex {
-      display: flex;
-  }
 
-  .flex-column {
-    display: flex;
-    flex-direction: column;
-  }
+/* ====================== result area style ========================= */
+/* ====================== ------------ ========================= */
+.section-result {
+  padding: 0 2rem;
+}
 
-  .result-row {
-      font-size: 1.6rem;
-      gap: 5rem;
-      padding: 1rem;
-  }
+.result-row {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 1px 2px 8px rgb(75, 75, 75);
+}
+
+.result-row > * {
+  padding: 0.5rem;
+}
+
+.col {
+  /* border-left: 1px solid rgb(75, 75, 75); */
+  box-shadow: 5px 0px 5px 0px #c6f4fc;
+}
+
+
+.header-col {
+  text-transform: uppercase;
+  background-color: #d0eee9;
+  font-weight: bold;
+}
+
+.brand-id  {
+  width: 10rem;
+}
+
+.brand {
+  width: 20rem;
+}
+
+.brand-url {
+  width: 35rem;
+}
+
+.result-status-code {
+  width: 12rem;
+}
+
+.result-message {
+  width: 20rem;
+}
+
+.result-url {
+  width: 35rem;
+}
