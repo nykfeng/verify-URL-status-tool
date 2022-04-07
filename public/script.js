@@ -57,7 +57,7 @@ function rowHTML(row, index) {
                 <div class="brand original-col col" data-hover="${row[1]}">${row[1]}</div>
                 <div class="brand-url original-col col" data-hover="${row[2]}">${row[2]}</div>
 
-                <div class="brand-url-domain col">apple.com</div>
+                <div class="brand-url-domain col">${validURL(row[2])? getDomain(row[2]) : "Not Valid"}</div>
                 <div class="result-status-code col"></div>
                 <div class="result-message col"></div>
                 <div class="result-url col"></div>
@@ -67,3 +67,10 @@ function rowHTML(row, index) {
   `;
   return html;
 }
+
+function getDomain(url) {
+  const domain = (new URL(url));
+  return domain.hostname.replace('www.','')
+}
+
+console.log(fileData);

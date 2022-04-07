@@ -78,7 +78,8 @@ header p {
 }
 
 .format-description,
-.upload-action {
+.upload-action,
+.start-visiting {
   background-color: #fff;
   font-size: 1.4rem;
   padding: 1rem;
@@ -101,6 +102,36 @@ header p {
   cursor: pointer;
 }
 
+.start-visiting {
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.main-btn {
+  font-size: 2.2rem;
+  padding: 0.3em 0.5em;
+  border-radius: 1rem;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+}
+
+.visit-btn {
+  background-color: #17a089;
+}
+
+.cancel-visit {
+  background-color: #a10000;
+}
+
+.main-btn:hover {
+  opacity: 0.8;
+}
+
+.main-btn:active {
+  transform: scale(0.98);
+}
+
 /* ====================== result area style ========================= */
 /* ====================== ------------ ========================= */
 .section-result {
@@ -110,7 +141,8 @@ header p {
 .result-row {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
-  box-shadow: 1px 2px 8px rgb(75, 75, 75);
+  box-shadow: 1px 2px 8px rgb(177, 177, 177);
+  justify-content: space-between;
 }
 
 .result-row > * {
@@ -118,14 +150,14 @@ header p {
 }
 
 .col {
-  /* border-left: 1px solid rgb(75, 75, 75); */
-  box-shadow: 5px 0px 5px 0px #c6f4fc;
+  box-shadow: -5px 0px 5px 0px #d0f1f7;
 }
 
-.header-col {
+.header-row {
   text-transform: uppercase;
   background-color: #d0eee9;
   font-weight: bold;
+  padding: 0.5rem 0;
 }
 
 .brand-id {
@@ -134,7 +166,6 @@ header p {
 
 .brand {
   width: 20rem;
-  overflow: hidden;
 }
 
 .brand-url {
@@ -144,6 +175,7 @@ header p {
 
 .brand-url-domain {
   width: 20rem;
+  overflow: hidden;
 }
 
 .result-status-code {
@@ -168,12 +200,11 @@ header p {
 
 /* ====================== For hover text ========================= */
 /* ====================== ------------ ========================= */
-.brand:hover {
-  word-wrap: break-word;
-
-}
 
 .brand-url:hover {
   word-wrap: break-word;
 }
 
+.brand-url-domain:hover {
+  word-wrap: break-word;
+}
