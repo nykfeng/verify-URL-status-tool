@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
+
+
     <script src="script.js" defer></script>
     <title>Verfiy URL Status</title>
 </head>
@@ -57,11 +61,11 @@
                       <label for="html">Brand ID</label><br>
                     <input type="radio" id="brandName" name="column-headers-name" value="Brand Name">
                       <label for="html">Brand Name</label><br>
-                    <input type="radio" id="brandUrl" name="column-headers-url" value="Brand URL">
+                    <input type="radio" id="brandUrl" name="column-headers-url" value="Brand URL" checked>
                       <label for="html">Brand URL</label><br>
                 </form>
-                <form action="">
-                    <input type="file" id="myFile" name="filename">
+                <form >
+                    <input type="file" id="excel-File" name="filename">
                     <input type="submit" class="upload-btn" value="upload">
 
                 </form>
@@ -71,14 +75,18 @@
 
         <section class="section-result">
             <div class="result-row flex">
-                <div class="brand-id original-col col header-col">Brand ID</div>
-                <div class="brand original-col col header-col">Brand Name</div>
-                <div class="brand-url original-col col header-col">Brand URL</div>
+                <div class="brand-id col header-col">Brand ID</div>
+                <div class="brand col header-col">Brand Name</div>
+                <div class="brand-url col header-col">Brand URL</div>
+
+                <div class="brand-url-domain col header-col">Domain</div>
 
                 <div class="result-status-code col header-col">Status Code</div>
                 <div class="result-message col header-col">Status Message</div>
                 <div class="result-url col header-col">Landing URL</div>
-                <button class="row-submit col header-col">Submit</button>
+                <div class="result-url-domain col header-col">Landing Domain</div>
+                <div class="result-verdict col header-col">Note</div>
+
             </div>
 
             <div class="result-row flex">
@@ -86,10 +94,12 @@
                 <div class="brand original-col col">Apple</div>
                 <div class="brand-url original-col col">https://www.apple.com</div>
 
+                <div class="brand-url-domain col">apple.com</div>
                 <div class="result-status-code col">200</div>
                 <div class="result-message col">Status OK</div>
                 <div class="result-url col">https://www.apple.com</div>
-                <button class="row-submit col">Submit</button>
+                <div class="result-url-domain col">apple.com</div>
+                <div class="result-verdict col">Same Domain Redirect</div>
             </div>
 
             <div class="result-row flex">
@@ -97,10 +107,12 @@
                 <div class="brand original-col col">Apple</div>
                 <div class="brand-url original-col col">https://www.apple.com</div>
 
+                <div class="brand-url-domain col">apple.com</div>
                 <div class="result-status-code col">200</div>
                 <div class="result-message col">Status OK</div>
                 <div class="result-url col">https://www.apple.com</div>
-                <button class="row-submit col">Submit</button>
+                <div class="result-url-domain col">apple.com</div>
+                <div class="result-verdict col">Different Domain Redirect</div>
             </div>
 
         </section>

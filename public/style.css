@@ -54,8 +54,8 @@ p {
 
 header {
   padding: 2rem;
-  background-color: #00b4d8;
-  color: #f7f7f7;
+  background-color: #9fe6da;
+  color: #353535;
 }
 
 header h1 {
@@ -101,8 +101,6 @@ header p {
   cursor: pointer;
 }
 
-
-
 /* ====================== result area style ========================= */
 /* ====================== ------------ ========================= */
 .section-result {
@@ -110,7 +108,7 @@ header p {
 }
 
 .result-row {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   margin-bottom: 0.5rem;
   box-shadow: 1px 2px 8px rgb(75, 75, 75);
 }
@@ -124,23 +122,28 @@ header p {
   box-shadow: 5px 0px 5px 0px #c6f4fc;
 }
 
-
 .header-col {
   text-transform: uppercase;
   background-color: #d0eee9;
   font-weight: bold;
 }
 
-.brand-id  {
+.brand-id {
   width: 10rem;
 }
 
 .brand {
   width: 20rem;
+  overflow: hidden;
 }
 
 .brand-url {
-  width: 35rem;
+  width: 32rem;
+  overflow: hidden;
+}
+
+.brand-url-domain {
+  width: 20rem;
 }
 
 .result-status-code {
@@ -154,3 +157,23 @@ header p {
 .result-url {
   width: 35rem;
 }
+
+.result-url-domain {
+  width: 20rem;
+}
+
+.result-verdict {
+  width: 20rem;
+}
+
+/* ====================== For hover text ========================= */
+/* ====================== ------------ ========================= */
+.brand:hover {
+  word-wrap: break-word;
+
+}
+
+.brand-url:hover {
+  word-wrap: break-word;
+}
+
