@@ -188,10 +188,12 @@ header p {
 
 .result-url {
   width: 35rem;
+  overflow: hidden;
 }
 
 .result-url-domain {
   width: 20rem;
+  overflow: hidden;
 }
 
 .result-verdict {
@@ -207,4 +209,25 @@ header p {
 
 .brand-url-domain:hover {
   word-wrap: break-word;
+}
+
+.result-url:hover {
+  word-wrap: break-word;
+}
+
+
+/* ====================== Loader  ========================= */
+/* ====================== ------------ ========================= */
+.loader {
+  border: 2px solid #f3f3f3; /* Light grey */
+  border-top: 2px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 1.6rem;
+  height: 1.6rem;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -88,18 +88,65 @@ function rowHTML(row, index) {
 }
 
 function getDomain(url) {
+  if (!url.includes("https://") && !url.includes("http://")) {
+    url = "https://" + url;
+  }
   const domain = new URL(url);
   return domain.hostname.replace("www.", "");
 }
 
-visitBtn.addEventListener("click", function () {
+visitBtn.addEventListener("click", async function () {
   if (fileData.length != 0) {
-    startVisitingUrl(fileData[0][2]);
+    for (let i = 1; i < fileData.length; i++) {
+      await startVisitingUrl(fileData[i][2], i);
+    }
   }
   // startVisitingUrl("www.ap555ple.com");
 });
 
-async function startVisitingUrl(url) {
+async function startVisitingUrl(url, index) {
+  const element = document.querySelector(`[data-row="${index}"]`);
+  setLoader(element);
   const urlData = await sendURL(url);
   console.log(urlData);
+  setResult(element, urlData);
+}
+
+function loaderHTML() {
+  const html = `<div class="loader"></div>`;
+  return html;
+}
+
+function setLoader(element) {
+  const rowElement = getUrlElements(element);
+
+  rowElement.statusCodeEl.innerHTML = loaderHTML();
+  rowElement.statusMessageEl.innerHTML = loaderHTML();
+  rowElement.resultUrlEl.innerHTML = loaderHTML();
+  rowElement.resultUrlDomain.innerHTML = loaderHTML();
+  rowElement.resultNote.innerHTML = loaderHTML();
+}
+
+function getUrlElements(element) {
+  const statusCodeEl = element.querySelector(".result-status-code");
+  const statusMessageEl = element.querySelector(".result-message");
+  const resultUrlEl = element.querySelector(".result-url");
+  const resultUrlDomain = element.querySelector(".result-url-domain");
+  const resultNote = element.querySelector(".result-verdict");
+
+  return {
+    statusCodeEl,
+    statusMessageEl,
+    resultUrlEl,
+    resultUrlDomain,
+    resultNote,
+  };
+}
+
+function setResult(element, data) {
+  const rowElement = getUrlElements(element);
+  rowElement.statusCodeEl.innerHTML = data.code;
+  rowElement.statusMessageEl.innerHTML = data.message;
+  rowElement.resultUrlEl.innerHTML = data.url;
+  rowElement.resultUrlDomain.innerHTML = getDomain(data.url);
 }
