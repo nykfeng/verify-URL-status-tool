@@ -12,6 +12,8 @@ let fileData;
 //   sendURL("https://www.mediaradar.com");
 // });
 
+let tableData = [];
+
 // Post request to send url to server and check
 async function sendURL(urlToVisit) {
   const url = "/url";
@@ -97,7 +99,14 @@ function getDomain(url) {
 
 visitBtn.addEventListener("click", async function () {
   if (fileData.length != 0) {
-    for (let i = 1; i < fileData.length; i++) {
+    // start at row 1 instead of 0 because of header
+
+    for (let i = 0; i < fileData.length; i++) {
+      tableData.push({
+        brandId: fileData[i][0],
+        brand: fileData[i][1],
+        brandUrl: fileData[i][2],
+      });
       await startVisitingUrl(fileData[i][2], i);
     }
   }
@@ -105,11 +114,18 @@ visitBtn.addEventListener("click", async function () {
 });
 
 async function startVisitingUrl(url, index) {
+  // for extracting elements, index has to + 1, since it starts at 0
   const element = document.querySelector(`[data-row="${index}"]`);
   setLoader(element);
   const urlData = await sendURL(url);
+  console.log("table data");
+  console.log(tableData[index]);
+  tableData[index]["code"] = urlData.code;
+  tableData[index]["message"] = urlData.message;
+  tableData[index]["landingUrl"] = urlData.url;
+
   console.log(urlData);
-  setResult(element, urlData);
+  setResult(element, urlData, tableData[index]);
 }
 
 function loaderHTML() {
@@ -143,10 +159,41 @@ function getUrlElements(element) {
   };
 }
 
-function setResult(element, data) {
+function setResult(element, data, tableData) {
   const rowElement = getUrlElements(element);
   rowElement.statusCodeEl.innerHTML = data.code;
   rowElement.statusMessageEl.innerHTML = data.message;
   rowElement.resultUrlEl.innerHTML = data.url;
   rowElement.resultUrlDomain.innerHTML = getDomain(data.url);
+  rowElement.resultNote.innerHTML = verify(tableData);
+}
+
+function getPath(url) {
+  const fullUrl = new URL(url);
+  return fullUrl.pathname;
+}
+
+function verify(rowData) {
+  const verdict = {};
+  try {
+    if (getDomain(rowData.brandUrl) != getDomain(rowData.landingUrl)) {
+      verdict["domain"] = "Different Domain";
+    } else {
+      verdict["domain"] = "Same Domain";
+    }
+
+    if (getPath(rowData.brandUrl) === "/") {
+      verdict["path"] = 'No Path';
+    } else if (getPath(rowData.brandUrl) != getPath(rowData.landingUrl)) {
+      verdict["path"] = "Different Path";
+    } else {
+      verdict["path"] = "Same Path";
+    }
+  } catch (err) {
+    console.log("Error while verifying domain and pathname: ", err);
+    verdict["domain"] = "Error Accessing Domain";
+    verdict["path"] = "Error Accessing Path";
+  }
+
+  return verdict.domain + " " + verdict.path;
 }
