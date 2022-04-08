@@ -17,9 +17,9 @@
 <body>
     <header>
 
-        <h1 class="title">A tool to verify to the status of whether a URL is still working</h1>
-        <p class="app-description">This is a business tool used to verify a list of brand URLs current status. The app
-            run through each URL, and return whether the URL is still working. It will return a status code and if
+        <h1 class="title">URL Status Verfication Tool</h1>
+        <p class="app-description">This is a business tool used to verify the current status of a list of brand URLs.
+            The app will run through each URL, and return whether the URL is still working. It will return a status code and if
             the URL redirects, it will return the new URL.</p>
     </header>
 
@@ -57,17 +57,15 @@
             <div class="upload-action flex-column">
                 <p>Customize your Excel columns (Checked means included):</p>
                 <form>
-                    <input type="radio" id="brandId" name="column-headers-id" value="Brand ID">
+                    <input type="radio" id="brandId" name="column-headers-id" value="Brand ID" checked>
                       <label for="html">Brand ID</label><br>
-                    <input type="radio" id="brandName" name="column-headers-name" value="Brand Name">
+                    <input type="radio" id="brandName" name="column-headers-name" value="Brand Name" checked>
                       <label for="html">Brand Name</label><br>
                     <input type="radio" id="brandUrl" name="column-headers-url" value="Brand URL" checked>
                       <label for="html">Brand URL</label><br>
                 </form>
                 <form>
                     <input type="file" id="excel-File" name="filename">
-                    <input type="submit" class="upload-btn" value="upload">
-
                 </form>
             </div>
 
@@ -93,31 +91,19 @@
 
             </div>
 
-            <div class="result-row flex">
-                <div class="brand-id original-col col">1231222</div>
-                <div class="brand original-col col">Apple</div>
-                <div class="brand-url original-col col">https://www.apple.com</div>
 
-                <div class="brand-url-domain col">apple.com</div>
-                <div class="result-status-code col">200</div>
-                <div class="result-message col">Status OK</div>
-                <div class="result-url col">https://www.apple.com</div>
-                <div class="result-url-domain col">apple.com</div>
-                <div class="result-verdict col">Same Domain Redirect</div>
-            </div>
+            <!-- <div class="result-row flex" data-row="0">
+                <div class="brand-id original-col col">4103227</div>
+                <div class="brand original-col col" data-hover="Griffin Art Projects">Griffin Art Projects</div>
+                <div class="brand-url original-col col" data-hover="http://griffinartprojects.ca/">http://griffinartprojects.ca/</div>
 
-            <div class="result-row flex">
-                <div class="brand-id original-col col">1231222</div>
-                <div class="brand original-col col">Apple</div>
-                <div class="brand-url original-col col">https://www.apple.com</div>
-
-                <div class="brand-url-domain col">apple.com</div>
-                <div class="result-status-code col">200</div>
-                <div class="result-message col">Status OK</div>
-                <div class="result-url col">https://www.apple.com</div>
-                <div class="result-url-domain col">apple.com</div>
-                <div class="result-verdict col">Different Domain Redirect</div>
-            </div>
+                <div class="brand-url-domain col">griffinartprojects.ca</div>
+                <div class="result-status-code col">200 <span class="status-icon status-icon-red"></span></div>
+                <div class="result-message col">OK</div>
+                <div class="result-url col">https://www.griffinartprojects.ca/</div>
+                <div class="result-url-domain col">griffinartprojects.ca</div>
+                <div class="result-verdict col verdict-color-warning">Same Domain No Path</div>
+            </div> -->
 
         </section>
 

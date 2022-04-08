@@ -8,10 +8,6 @@ const visitBtn = document.querySelector(".visit-btn");
 const stopBtn = document.querySelector(".stop-visit-btn");
 
 let fileData;
-// submitEL.addEventListener("click", function () {
-//   sendURL("https://www.mediaradar.com");
-// });
-
 let tableData = [];
 
 // Post request to send url to server and check
@@ -29,7 +25,6 @@ async function sendURL(urlToVisit) {
     body: data,
   });
 
-  console.log("Response value: ");
   // console.log(await responseValue.json());
   return responseValue.json();
 }
@@ -49,14 +44,12 @@ function validURL(str) {
 
 fileEl.addEventListener("change", function () {
   readXlsxFile(fileEl.files[0]).then(function (data) {
-    console.log("Data from file is ");
-    console.log(data);
+    // Remove the header
+    data.shift();
     fileData = data.map((row, index) => {
       generateTableRow(row, index);
       return row;
     });
-    console.log("file data is ");
-    console.log(fileData);
   });
 });
 
@@ -65,7 +58,6 @@ function generateTableRow(row, index) {
 }
 
 function rowHTML(row, index) {
-  // element.dataset.row = index
   const html = `
   <div class="result-row flex" data-row="${index}">
                 <div class="brand-id original-col col">${row[0]}</div>
@@ -99,8 +91,6 @@ function getDomain(url) {
 
 visitBtn.addEventListener("click", async function () {
   if (fileData.length != 0) {
-    // start at row 1 instead of 0 because of header
-
     for (let i = 0; i < fileData.length; i++) {
       tableData.push({
         brandId: fileData[i][0],
@@ -109,8 +99,9 @@ visitBtn.addEventListener("click", async function () {
       });
       await startVisitingUrl(fileData[i][2], i);
     }
+    console.log('Let s seet the table data array');
+    console.log(tableData);
   }
-  // startVisitingUrl("www.ap555ple.com");
 });
 
 async function startVisitingUrl(url, index) {
@@ -118,13 +109,11 @@ async function startVisitingUrl(url, index) {
   const element = document.querySelector(`[data-row="${index}"]`);
   setLoader(element);
   const urlData = await sendURL(url);
-  console.log("table data");
-  console.log(tableData[index]);
+
   tableData[index]["code"] = urlData.code;
   tableData[index]["message"] = urlData.message;
   tableData[index]["landingUrl"] = urlData.url;
 
-  console.log(urlData);
   setResult(element, urlData, tableData[index]);
 }
 
@@ -161,11 +150,33 @@ function getUrlElements(element) {
 
 function setResult(element, data, tableData) {
   const rowElement = getUrlElements(element);
-  rowElement.statusCodeEl.innerHTML = data.code;
+  rowElement.statusCodeEl.innerHTML =
+    data.code + setResultStatusCodeIcon(data.code);
   rowElement.statusMessageEl.innerHTML = data.message;
   rowElement.resultUrlEl.innerHTML = data.url;
   rowElement.resultUrlDomain.innerHTML = getDomain(data.url);
-  rowElement.resultNote.innerHTML = verify(tableData);
+  rowElement.resultNote.innerHTML =
+    data.code.toString()[0] === "4" ? "Page Not Found" : verify(tableData);
+  setResultVerdictColor(rowElement.resultNote, rowElement.resultNote.innerHTML);
+}
+
+function setResultStatusCodeIcon(code) {
+  if (code.toString()[0] === "4") {
+    return ` <span class="status-icon status-icon-red"></span>`;
+  } else if (code.toString()[0] === "2") {
+    return ` <span class="status-icon status-icon-green"></span>`;
+  } else return ` <span class="status-icon"></span>`;
+}
+
+function setResultVerdictColor(noteEl, verdict) {
+  if (verdict.includes("Redirect") || verdict.includes("Page Not Found")) {
+    noteEl.classList.add("verdict-color-warning");
+  } else if (
+    verdict.includes("Same Domain No Path") ||
+    verdict.includes("Same Domain Same Path")
+  ) {
+    noteEl.classList.add("verdict-color-greenlight");
+  }
 }
 
 function getPath(url) {
@@ -177,15 +188,15 @@ function verify(rowData) {
   const verdict = {};
   try {
     if (getDomain(rowData.brandUrl) != getDomain(rowData.landingUrl)) {
-      verdict["domain"] = "Different Domain";
+      verdict["domain"] = "Redirect Domain";
     } else {
       verdict["domain"] = "Same Domain";
     }
 
     if (getPath(rowData.brandUrl) === "/") {
-      verdict["path"] = 'No Path';
+      verdict["path"] = "No Path";
     } else if (getPath(rowData.brandUrl) != getPath(rowData.landingUrl)) {
-      verdict["path"] = "Different Path";
+      verdict["path"] = "Redirect Path";
     } else {
       verdict["path"] = "Same Path";
     }
@@ -195,5 +206,6 @@ function verify(rowData) {
     verdict["path"] = "Error Accessing Path";
   }
 
+  rowData['note'] = verdict.domain + " " + verdict.path;
   return verdict.domain + " " + verdict.path;
 }
