@@ -1,4 +1,4 @@
-import * as xlsx from "https://unpkg.com/xlsx/xlsx.mjs";
+import download from "./download.js";
 
 const submitEL = document.querySelector(".row-submit");
 const fileEl = document.querySelector("#excel-File");
@@ -8,6 +8,7 @@ const resultTable = document.querySelector(".section-result");
 // buttons
 const visitBtn = document.querySelector(".visit-btn");
 const stopBtn = document.querySelector(".stop-visit-btn");
+const downloadBtn = document.querySelector(".download-btn");
 
 let fileData;
 let tableData = [];
@@ -27,7 +28,6 @@ async function sendURL(urlToVisit) {
     body: data,
   });
 
-  // console.log(await responseValue.json());
   return responseValue.json();
 }
 
@@ -103,6 +103,10 @@ visitBtn.addEventListener("click", async function () {
     }
     console.log("Let s seet the table data array");
     console.log(tableData);
+
+    downloadBtn.addEventListener('click', function() {
+      download.csv(tableData);
+    })
   }
 });
 
@@ -212,17 +216,17 @@ function verify(rowData) {
   return verdict.domain + " " + verdict.path;
 }
 
-function writeToExcelFile() {
-  console.log(xlsx);
-  const newWB = xlsx.utils.book_new();
-  console.log("new wookbook");
-  console.log(newWB);
-  const newWS = xlsx.utils.json_to_sheet([{ "a-header": "a", "b-header": "b" }]);
-  console.log(newWS);
+// function writeToExcelFile() {
+//   console.log(xlsx);
+//   const newWB = xlsx.utils.book_new();
+//   console.log("new wookbook");
+//   console.log(newWB);
+//   const newWS = xlsx.utils.json_to_sheet([{ "a-header": "a", "b-header": "b" }]);
+//   console.log(newWS);
 
-  xlsx.utils.book_append_sheet((newWB, newWS, "New Data"))
+//   xlsx.utils.book_append_sheet((newWB, newWS, "New Data"))
 
-  xlsx.writeFile(newWB, "New Data File.xlsx");
-}
+//   xlsx.writeFile(newWB, "New Data File.xlsx");
+// }
 
-writeToExcelFile();
+// writeToExcelFile();
