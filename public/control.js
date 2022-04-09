@@ -1,9 +1,17 @@
 import generateHTML from "./generateHTML.js";
 import util from "./util.js";
 
+// selectors
 const resultTable = document.querySelector(".section-result");
+const exampleTable = document.querySelector(".example-table");
+
+// Change the example tables to show how it works
+function changeExampleTable() {
+    
+}
 
 
+// Create table row for each row from the file
 function makeTableRow(row, index) {
   resultTable.insertAdjacentHTML(
     "beforeend",
@@ -11,6 +19,7 @@ function makeTableRow(row, index) {
   );
 }
 
+// Set data loader animation for each row when server is running
 function setLoader(element) {
   const rowElement = util.getUrlElements(element);
 
@@ -21,6 +30,7 @@ function setLoader(element) {
   rowElement.resultNote.innerHTML = generateHTML.cellContentLoader();
 }
 
+// Fill in data for each row after result from server visit
 function setResult(element, data, tableData) {
   const rowElement = util.getUrlElements(element);
   rowElement.statusCodeEl.innerHTML =
@@ -33,6 +43,7 @@ function setResult(element, data, tableData) {
   setResultVerdictColor(rowElement.resultNote, rowElement.resultNote.innerHTML);
 }
 
+// Status code icon, green or red
 function setResultStatusCodeIcon(code) {
   if (code.toString()[0] === "4") {
     return ` <span class="status-icon status-icon-red"></span>`;
@@ -41,6 +52,7 @@ function setResultStatusCodeIcon(code) {
   } else return ` <span class="status-icon"></span>`;
 }
 
+// Final result note color
 function setResultVerdictColor(noteEl, verdict) {
   if (verdict.includes("Redirect") || verdict.includes("Page Not Found")) {
     noteEl.classList.add("verdict-color-warning");
@@ -52,10 +64,13 @@ function setResultVerdictColor(noteEl, verdict) {
   }
 }
 
+// Logic to verfiy final note
 function verify(rowData) {
   const verdict = {};
   try {
-    if (util.getDomain(rowData.brandUrl) != util.getDomain(rowData.landingUrl)) {
+    if (
+      util.getDomain(rowData.brandUrl) != util.getDomain(rowData.landingUrl)
+    ) {
       verdict["domain"] = "Redirect Domain";
     } else {
       verdict["domain"] = "Same Domain";
@@ -63,7 +78,9 @@ function verify(rowData) {
 
     if (util.getPath(rowData.brandUrl) === "/") {
       verdict["path"] = "No Path";
-    } else if (util.getPath(rowData.brandUrl) != util.getPath(rowData.landingUrl)) {
+    } else if (
+      util.getPath(rowData.brandUrl) != util.getPath(rowData.landingUrl)
+    ) {
       verdict["path"] = "Redirect Path";
     } else {
       verdict["path"] = "Same Path";
@@ -78,9 +95,40 @@ function verify(rowData) {
   return verdict.domain + " " + verdict.path;
 }
 
+// Post request to send url to server and check
+async function sendURL(urlToVisit) {
+  const url = "/url";
+  const data = new URLSearchParams();
+  for (const [key, value] of Object.entries({ url: urlToVisit })) {
+    data.append(key, value);
+  }
+  const responseValue = await fetch(url, {
+    method: "POST",
+    headers: new Headers({
+      "Content-Type": "application/x-www-form-urlencoded  ",
+    }),
+    body: data,
+  });
+
+  return responseValue.json();
+}
+
+// Sending URL to server, getting result and filling in results
+async function startVisitingUrl(url, index, tableData) {
+  const element = document.querySelector(`[data-row="${index}"]`);
+  setLoader(element);
+  const urlData = await sendURL(url);
+
+  tableData[index]["code"] = urlData.code;
+  tableData[index]["message"] = urlData.message;
+  tableData[index]["landingUrl"] = urlData.url;
+
+  setResult(element, urlData, tableData[index]);
+}
 
 export default {
-    makeTableRow,
-    setLoader,
-    setResult
-}
+  makeTableRow,
+  setLoader,
+  setResult,
+  startVisitingUrl,
+};

@@ -1,9 +1,7 @@
 import axios from "axios";
 
-
 async function get(url) {
-  console.log("Reading URL: ", url);
-
+  console.log("Server reading URL: ", url);
   try {
     const res = await axios.get(url, {
       headers: {
@@ -15,10 +13,6 @@ async function get(url) {
     // console.log(res.data);
 
     // console.log(util.inspect(res, {showHidden: false, depth: null, colors: true}))
-
-
-
-
     return successStatus(res);
   } catch (error) {
     if (error.response) {
@@ -68,8 +62,6 @@ function requestStatus(request) {
 
   console.log("host name");
   console.log(request._currentUrl);
-  //   console.log(response.request?.host || response._currentRequest.res.host);
-  //   console.log(response.request?.path);
 
   const status = {};
 

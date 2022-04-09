@@ -3,6 +3,7 @@ function csv(dataTableArr) {
   if (dataTableArr.length < 1) {
     return;
   }
+  // csv file header row
   const dataToExport = [
     "Brand ID,",
     "Brand Name,",
@@ -13,6 +14,8 @@ function csv(dataTableArr) {
     "Note\n",
   ];
 
+  // Data for each row, need to be careful with string containing ,
+  // Need to add a new line at the end of the last element
   dataTableArr.forEach((row) => {
     dataToExport.push(
       (/[,]/.test(row.brandId) ? `"${row.brandId}"` : row.brandId) + ","
@@ -36,6 +39,7 @@ function csv(dataTableArr) {
     );
   });
 
+  // Creating new achor and blob element and adding a.href for the blob
   const csvBlob = new Blob(dataToExport, { type: "text/csv" });
   const blobUrl = URL.createObjectURL(csvBlob);
   const anchorElement = document.createElement("a");

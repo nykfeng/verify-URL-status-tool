@@ -8,29 +8,15 @@ const visitBtn = document.querySelector(".visit-btn");
 const stopBtn = document.querySelector(".stop-visit-btn");
 const downloadBtn = document.querySelector(".download-btn");
 
+// radio buttons
+const brandIdRadio = document.querySelector("#brandIdRadio");
+const brandNameRadio = document.querySelector("#brandNameRadio");
+const brandUrlRadio = document.querySelector("#brandUrlRadio");
+
 // initial data storage from importing the file
 let fileData;
 // final data storage for the table and download
 let tableData = [];
-
-// Post request to send url to server and check
-async function sendURL(urlToVisit) {
-  const url = "/url";
-  const data = new URLSearchParams();
-  for (const [key, value] of Object.entries({ url: urlToVisit })) {
-    data.append(key, value);
-  }
-  const responseValue = await fetch(url, {
-    method: "POST",
-    headers: new Headers({
-      "Content-Type": "application/x-www-form-urlencoded  ",
-    }),
-    body: data,
-  });
-
-  return responseValue.json();
-}
-
 
 // Choose File button listener
 fileEl.addEventListener("change", function () {
@@ -53,27 +39,32 @@ visitBtn.addEventListener("click", async function () {
         brand: fileData[i][1],
         brandUrl: fileData[i][2],
       });
-      await startVisitingUrl(fileData[i][2], i);
+      await control.startVisitingUrl(fileData[i][2], i, tableData);
     }
-    console.log("Let s seet the table data array");
-    console.log(tableData);
 
+    // after visiting each url, the download button will be available
     downloadBtn.addEventListener("click", function () {
       download.csv(tableData);
     });
   }
 });
 
-async function startVisitingUrl(url, index) {
-  const element = document.querySelector(`[data-row="${index}"]`);
-  control.setLoader(element);
-  const urlData = await sendURL(url);
+brandIdRadio.addEventListener("click", function () {
+  // if it is already checked to true
+  if (this.getAttribute("checked") === "") {
+    this.checked = false;
+    this.removeAttribute("checked");
+  } else {
+    this.checked = true;
+    this.setAttribute("checked", "");
+  }
 
-  tableData[index]["code"] = urlData.code;
-  tableData[index]["message"] = urlData.message;
-  tableData[index]["landingUrl"] = urlData.url;
+  console.log(brandIdRadio.getAttribute("checked"));
 
-  control.setResult(element, urlData, tableData[index]);
-}
-
-
+  console.log(brandIdRadio.checked);
+  // if (brandIdRadio.checked) brandIdRadio.checked = false;
+  // else if (!brandIdRadio.checked) brandIdRadio.checked = true;
+  // else this.checked = true;
+  // if(brandIdRadio.checked) brandIdRadio.checked = false;
+  console.log(brandIdRadio);
+});

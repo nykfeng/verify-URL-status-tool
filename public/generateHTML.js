@@ -1,5 +1,6 @@
 import util from "./util.js";
 
+// HTML elements for each row of data from the file
 function tableRow(row, index) {
   const html = `
     <div class="result-row flex" data-row="${index}">
@@ -19,6 +20,7 @@ function tableRow(row, index) {
   return html;
 }
 
+// HTML element for content loader
 function cellContentLoader() {
   const html = `<div class="loader"></div>`;
   return html;
