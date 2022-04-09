@@ -1,6 +1,5 @@
 import download from "./download.js";
 import control from "./control.js";
-import util from "./util.js";
 
 const fileEl = document.querySelector("#excel-File");
 
@@ -15,7 +14,6 @@ const downloadBtn = document.querySelector(".download-btn");
 // radio buttons
 const brandIdRadio = document.querySelector("#brandIdRadio");
 const brandNameRadio = document.querySelector("#brandNameRadio");
-const brandUrlRadio = document.querySelector("#brandUrlRadio");
 
 // initial data storage from importing the file
 let fileData;
@@ -30,6 +28,7 @@ fileEl.addEventListener("change", function () {
     entry.remove();
   });
 
+  // Using xlsx plugin
   readXlsxFile(fileEl.files[0]).then(function (data) {
     // Remove the header
     data.shift();
@@ -38,8 +37,6 @@ fileEl.addEventListener("change", function () {
       control.makeTableRow(row, index, columns);
       return row;
     });
-
-    console.log(fileData);
   });
 });
 
@@ -64,32 +61,10 @@ visitBtn.addEventListener("click", async function () {
 
 // radio button listener for brand ID
 brandIdRadio.addEventListener("click", function () {
-  // if it is already checked to true
-  if (this.getAttribute("checked") === "") {
-    this.checked = false;
-    this.removeAttribute("checked");
-    control.changeTables("brandId", false);
-    util.adjustColumn(columns, "brandId");
-  } else {
-    this.checked = true;
-    this.setAttribute("checked", "");
-    control.changeTables("brandId", true);
-    util.adjustColumn(columns, "brandId");
-  }
+  control.radioBtnAdjust(columns, this, "brandId");
 });
 
 // radio button listener for brand name
 brandNameRadio.addEventListener("click", function () {
-  // if it is already checked to true
-  if (this.getAttribute("checked") === "") {
-    this.checked = false;
-    this.removeAttribute("checked");
-    control.changeTables("brandName", false);
-    util.adjustColumn(columns, "brand");
-  } else {
-    this.checked = true;
-    this.setAttribute("checked", "");
-    control.changeTables("brandName", true);
-    util.adjustColumn(columns, "brand");
-  }
+  control.radioBtnAdjust(columns, this, "brand");
 });

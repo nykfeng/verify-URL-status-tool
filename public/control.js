@@ -12,7 +12,7 @@ function changeTables(column, action) {
   if (column === "brandId") {
     exampleCol = exampleTable.querySelectorAll(".brandIdCol");
     resultCol = resultTable.querySelector(".brandId");
-  } else if (column === "brandName") {
+  } else if (column === "brand") {
     exampleCol = exampleTable.querySelectorAll(".brandNameCol");
     resultCol = resultTable.querySelector(".brand");
   } else if (column === "brandUrl") {
@@ -24,6 +24,22 @@ function changeTables(column, action) {
   });
   resultCol.style.display = action ? "inline-flex" : "none";
 }
+
+// Callback functions for changing table columns
+function radioBtnAdjust(columns, element, property) {
+    // if it is already checked to true
+    if (element.getAttribute("checked") === "") {
+      element.checked = false;
+      element.removeAttribute("checked");
+      changeTables(property, false);
+      util.adjustColumn(columns, property);
+    } else {
+      element.checked = true;
+      element.setAttribute("checked", "");
+      changeTables(property, true);
+      util.adjustColumn(columns, property);
+    }
+  }
 
 // Create table row for each row from the file
 function makeTableRow(row, index, columns) {
@@ -143,6 +159,7 @@ async function startVisitingUrl(url, index, tableData) {
 
 export default {
   changeTables,
+  radioBtnAdjust,
   makeTableRow,
   setLoader,
   setResult,
