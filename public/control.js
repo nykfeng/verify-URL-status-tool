@@ -11,25 +11,25 @@ function changeTables(column, action) {
   let resultCol;
   if (column === "brandId") {
     exampleCol = exampleTable.querySelectorAll(".brandIdCol");
-    resultCol = resultTable.querySelector(".brand-id");
+    resultCol = resultTable.querySelector(".brandId");
   } else if (column === "brandName") {
     exampleCol = exampleTable.querySelectorAll(".brandNameCol");
     resultCol = resultTable.querySelector(".brand");
   } else if (column === "brandUrl") {
     exampleCol = exampleTable.querySelectorAll(".brandUrlCol");
-    resultCol = resultTable.querySelector(".brand-url");
+    resultCol = resultTable.querySelector(".brandUrl");
   }
   exampleCol.forEach((row) => {
     row.style.display = action ? "table-cell" : "none";
   });
-  resultCol.style.display = action ? "inline-block" : "none";
+  resultCol.style.display = action ? "inline-flex" : "none";
 }
 
 // Create table row for each row from the file
-function makeTableRow(row, index) {
+function makeTableRow(row, index, columns) {
   resultTable.insertAdjacentHTML(
     "beforeend",
-    generateHTML.tableRow(row, index)
+    generateHTML.tableRow(row, index, columns)
   );
 }
 
@@ -103,6 +103,7 @@ function verify(rowData) {
     console.log("Error while verifying domain and pathname: ", err);
     verdict["domain"] = "Error Accessing Domain";
     verdict["path"] = "Error Accessing Path";
+    rowData["note"] = verdict.domain + " " + verdict.path;
   }
 
   rowData["note"] = verdict.domain + " " + verdict.path;

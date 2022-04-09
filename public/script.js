@@ -1,7 +1,11 @@
 import download from "./download.js";
 import control from "./control.js";
+import util from "./util.js";
 
 const fileEl = document.querySelector("#excel-File");
+
+// default columns
+const columns = ["brandId", "brand", "brandUrl"];
 
 // buttons
 const visitBtn = document.querySelector(".visit-btn");
@@ -20,13 +24,22 @@ let tableData = [];
 
 // Choose File button listener
 fileEl.addEventListener("change", function () {
+  // remove existing data if any
+  const existingEntries = document.querySelectorAll(".file-data-entry");
+  existingEntries.forEach((entry) => {
+    entry.remove();
+  });
+
   readXlsxFile(fileEl.files[0]).then(function (data) {
     // Remove the header
     data.shift();
+
     fileData = data.map((row, index) => {
-      control.makeTableRow(row, index);
+      control.makeTableRow(row, index, columns);
       return row;
     });
+
+    console.log(fileData);
   });
 });
 
@@ -34,12 +47,12 @@ fileEl.addEventListener("change", function () {
 visitBtn.addEventListener("click", async function () {
   if (fileData.length != 0) {
     for (let i = 0; i < fileData.length; i++) {
-      tableData.push({
-        brandId: fileData[i][0],
-        brand: fileData[i][1],
-        brandUrl: fileData[i][2],
+      let newRow = {};
+      columns.forEach((col, index) => {
+        newRow[col] = fileData[i][index];
       });
-      await control.startVisitingUrl(fileData[i][2], i, tableData);
+      tableData.push(newRow);
+      await control.startVisitingUrl(tableData[i].brandUrl, i, tableData);
     }
 
     // after visiting each url, the download button will be available
@@ -56,10 +69,12 @@ brandIdRadio.addEventListener("click", function () {
     this.checked = false;
     this.removeAttribute("checked");
     control.changeTables("brandId", false);
+    util.adjustColumn(columns, "brandId");
   } else {
     this.checked = true;
     this.setAttribute("checked", "");
     control.changeTables("brandId", true);
+    util.adjustColumn(columns, "brandId");
   }
 });
 
@@ -70,9 +85,11 @@ brandNameRadio.addEventListener("click", function () {
     this.checked = false;
     this.removeAttribute("checked");
     control.changeTables("brandName", false);
+    util.adjustColumn(columns, "brand");
   } else {
     this.checked = true;
     this.setAttribute("checked", "");
     control.changeTables("brandName", true);
+    util.adjustColumn(columns, "brand");
   }
 });

@@ -44,7 +44,23 @@ function validateURL(str) {
   return !!pattern.test(str);
 }
 
+// Adjust column array
+function adjustColumn(columns, colToChange) {
+  if (columns.indexOf(colToChange) > -1) {
+    columns.splice(columns.indexOf(colToChange), 1);
+  } else {
+    if (colToChange === "brandId") {
+      columns.unshift(colToChange);
+    } else {
+      columns.splice(1, 0, colToChange);
+    }
+  }
+}
+
+
+
 export default {
+  adjustColumn,
   getUrlElements,
   getDomain,
   getPath,

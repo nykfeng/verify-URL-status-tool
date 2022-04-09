@@ -1,15 +1,12 @@
 import util from "./util.js";
 
 // HTML elements for each row of data from the file
-function tableRow(row, index) {
+function tableRow(row, index, columns) {
   const html = `
-    <div class="result-row flex" data-row="${index}">
-                  <div class="brand-id original-col col">${row[0]}</div>
-                  <div class="brand original-col col">${row[1]}</div>
-                  <div class="brand-url original-col col">${row[2]}</div>
-                  <div class="brand-url-domain col">${
-                    util.validateURL(row[2]) ? util.getDomain(row[2]) : "Not Valid"
-                  }</div>
+    <div class="result-row flex file-data-entry" data-row="${index}">
+        
+                  ${rowColumn(row, columns)}
+                  
                   <div class="result-status-code col"></div>
                   <div class="result-message col"></div>
                   <div class="result-url col"></div>
@@ -20,14 +17,29 @@ function tableRow(row, index) {
   return html;
 }
 
+
+// Generate row and column dynamically
+function rowColumn(row, columns) {
+  let html = "";
+  columns.forEach((col, index) => {
+    html += `<div class="${col} original-col col">${row[index]}</div>`;
+  });
+
+  html += `<div class="brand-url-domain col">${
+    util.validateURL(row[row.length - 1])
+      ? util.getDomain(row[row.length - 1])
+      : "Not Valid"
+  }</div>`;
+  return html;
+}
+
 // HTML element for content loader
 function cellContentLoader() {
   const html = `<div class="loader"></div>`;
   return html;
 }
 
-
 export default {
-    tableRow,
-    cellContentLoader
-}
+  tableRow,
+  cellContentLoader,
+};
