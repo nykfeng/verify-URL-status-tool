@@ -91,6 +91,10 @@ header p {
   gap: 2rem;
 }
 
+.format-description {
+  min-width: 44rem;
+}
+
 .start-visiting,
 .download-file {
   background-color: inherit;

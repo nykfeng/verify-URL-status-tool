@@ -49,22 +49,30 @@ visitBtn.addEventListener("click", async function () {
   }
 });
 
+// radio button listener for brand ID
 brandIdRadio.addEventListener("click", function () {
   // if it is already checked to true
   if (this.getAttribute("checked") === "") {
     this.checked = false;
     this.removeAttribute("checked");
+    control.changeTables("brandId", false);
   } else {
     this.checked = true;
     this.setAttribute("checked", "");
+    control.changeTables("brandId", true);
   }
+});
 
-  console.log(brandIdRadio.getAttribute("checked"));
-
-  console.log(brandIdRadio.checked);
-  // if (brandIdRadio.checked) brandIdRadio.checked = false;
-  // else if (!brandIdRadio.checked) brandIdRadio.checked = true;
-  // else this.checked = true;
-  // if(brandIdRadio.checked) brandIdRadio.checked = false;
-  console.log(brandIdRadio);
+// radio button listener for brand name
+brandNameRadio.addEventListener("click", function () {
+  // if it is already checked to true
+  if (this.getAttribute("checked") === "") {
+    this.checked = false;
+    this.removeAttribute("checked");
+    control.changeTables("brandName", false);
+  } else {
+    this.checked = true;
+    this.setAttribute("checked", "");
+    control.changeTables("brandName", true);
+  }
 });

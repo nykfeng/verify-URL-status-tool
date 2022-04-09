@@ -32,24 +32,24 @@
                 <div class="format-example">
                     <table class="example-table">
                         <tr>
-                            <th>Brand ID</th>
-                            <th>Brand Name</th>
-                            <th>Brand URL</th>
+                            <th class="brandIdCol">Brand ID</th>
+                            <th class="brandNameCol">Brand Name</th>
+                            <th class="brandUrlCol">Brand URL</th>
                         </tr>
                         <tr>
-                            <td>123456</td>
-                            <td>Apple, Inc.</td>
-                            <td>https://www.apple.com</td>
+                            <td class="brandIdCol">123456</td>
+                            <td class="brandNameCol">Apple, Inc.</td>
+                            <td class="brandUrlCol">https://www.apple.com</td>
                         </tr>
                         <tr>
-                            <td>789456</td>
-                            <td>MediaRadar, Inc.</td>
-                            <td>https://www.mediardar.com</td>
+                            <td class="brandIdCol">789456</td>
+                            <td class="brandNameCol">MediaRadar, Inc.</td>
+                            <td class="brandUrlCol">https://www.mediardar.com</td>
                         </tr>
                         <tr>
-                            <td>1753951</td>
-                            <td>Netflix</td>
-                            <td>https://www.netflix.com</td>
+                            <td class="brandIdCol">1753951</td>
+                            <td class="brandNameCol">Netflix</td>
+                            <td class="brandUrlCol">https://www.netflix.com</td>
                         </tr>
                     </table>
                 </div>
@@ -58,12 +58,12 @@
             <div class="upload-action flex-column">
                 <p>Customize your Excel columns (Checked means included):</p>
                 <form>
-                    <input type="radio" id="brandIdRadio" name="column-headers-id" value="Brand ID" >
+                    <input type="radio" id="brandIdRadio" name="column-headers-id" value="Brand ID" checked>
                       <label for="html">Brand ID</label><br>
                     <input type="radio" id="brandNameRadio" name="column-headers-name" value="Brand Name" checked>
                       <label for="html">Brand Name</label><br>
                     <input type="radio" id="brandUrlRadio" name="column-headers-url" value="Brand URL" checked>
-                      <label for="html">Brand URL</label><br>
+                      <label for="html">Brand URL (Must have)</label><br>
                 </form>
                 <form>
                     <input type="file" id="excel-File" name="filename">

@@ -6,10 +6,24 @@ const resultTable = document.querySelector(".section-result");
 const exampleTable = document.querySelector(".example-table");
 
 // Change the example tables to show how it works
-function changeExampleTable() {
-    
+function changeTables(column, action) {
+  let exampleCol;
+  let resultCol;
+  if (column === "brandId") {
+    exampleCol = exampleTable.querySelectorAll(".brandIdCol");
+    resultCol = resultTable.querySelector(".brand-id");
+  } else if (column === "brandName") {
+    exampleCol = exampleTable.querySelectorAll(".brandNameCol");
+    resultCol = resultTable.querySelector(".brand");
+  } else if (column === "brandUrl") {
+    exampleCol = exampleTable.querySelectorAll(".brandUrlCol");
+    resultCol = resultTable.querySelector(".brand-url");
+  }
+  exampleCol.forEach((row) => {
+    row.style.display = action ? "table-cell" : "none";
+  });
+  resultCol.style.display = action ? "inline-block" : "none";
 }
-
 
 // Create table row for each row from the file
 function makeTableRow(row, index) {
@@ -127,6 +141,7 @@ async function startVisitingUrl(url, index, tableData) {
 }
 
 export default {
+  changeTables,
   makeTableRow,
   setLoader,
   setResult,
