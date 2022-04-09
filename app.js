@@ -14,10 +14,7 @@ app.use(express.static("./public"));
 // });
 
 app.post("/url", async (req, res) => {
-  console.log("Req.body is ");
-  console.log(req.body);
   const url = req.body.url;
-
   res.json(await visit.get(url));
 });
 

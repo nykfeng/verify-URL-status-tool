@@ -1,8 +1,5 @@
-// const axios = require("axios");
 import axios from "axios";
-import { parse } from "node-html-parser";
-import util from 'util';
-import fetch from 'node-fetch';
+
 
 async function get(url) {
   console.log("Reading URL: ", url);
@@ -31,7 +28,7 @@ async function get(url) {
 
       return responseStatus(error.response);
     } else if (error.request) {
-      console.log("request error -------------------------");
+      console.log("request error --------------------------");
       // console.log(error.request);
 
       return requestStatus(error.request);
