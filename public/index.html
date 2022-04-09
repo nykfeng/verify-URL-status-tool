@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
+    <!-- <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script> -->
 
+    <script lang="javascript" src="xlsx.full.min.js" type="module"></script>
 
-    <script src="script.js" defer></script>
+    <script src="script.js" type="module" defer></script>
+    <script src="download.js" type="module" defer></script>
     <title>Verfiy URL Status</title>
 </head>
 
@@ -19,7 +22,8 @@
 
         <h1 class="title">URL Status Verfication Tool</h1>
         <p class="app-description">This is a business tool used to verify the current status of a list of brand URLs.
-            The app will run through each URL, and return whether the URL is still working. It will return a status code and if
+            The app will run through each URL, and return whether the URL is still working. It will return a status code
+            and if
             the URL redirects, it will return the new URL.</p>
     </header>
 
@@ -70,8 +74,14 @@
             </div>
 
             <div class="start-visiting flex-column">
+                <p>Start/Stop visiting the list of URLs with scripts.</p>
                 <button class="visit-btn main-btn">Start</button>
                 <button class="stop-visit-btn main-btn">Stop</button>
+            </div>
+
+            <div class="download-file flex-column">
+                <p>Download the result.</p>
+                <button class="main-btn download-btn">Download</button>
             </div>
 
         </section>

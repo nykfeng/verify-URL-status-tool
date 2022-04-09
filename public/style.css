@@ -59,7 +59,7 @@ header {
 }
 
 header h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   max-width: 100rem;
   margin-bottom: 2.5rem;
 
@@ -83,11 +83,18 @@ header p {
 
 .format-description,
 .upload-action,
-.start-visiting {
+.start-visiting,
+.download-file {
   background-color: #fff;
   font-size: 1.4rem;
   padding: 1rem;
   gap: 2rem;
+}
+
+.start-visiting,
+.download-file {
+  background-color: inherit;
+  max-width: 25rem;
 }
 
 .upload-action input {
@@ -108,7 +115,11 @@ header p {
 
 .start-visiting {
   flex-direction: column;
-  gap: 5rem;
+  gap: 2rem;
+}
+
+.start-visiting button {
+  max-width: 8rem;
 }
 
 .main-btn {
@@ -134,6 +145,10 @@ header p {
 
 .main-btn:active {
   transform: scale(0.98);
+}
+
+.download-btn {
+  background-color: #21b434;
 }
 
 /* ====================== result area style ========================= */

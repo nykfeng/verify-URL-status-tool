@@ -1,3 +1,5 @@
+import * as xlsx from "https://unpkg.com/xlsx/xlsx.mjs";
+
 const submitEL = document.querySelector(".row-submit");
 const fileEl = document.querySelector("#excel-File");
 const uploadBtn = document.querySelector(".upload-btn");
@@ -17,7 +19,7 @@ async function sendURL(urlToVisit) {
   for (const [key, value] of Object.entries({ url: urlToVisit })) {
     data.append(key, value);
   }
-  responseValue = await fetch(url, {
+  const responseValue = await fetch(url, {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/x-www-form-urlencoded  ",
@@ -99,7 +101,7 @@ visitBtn.addEventListener("click", async function () {
       });
       await startVisitingUrl(fileData[i][2], i);
     }
-    console.log('Let s seet the table data array');
+    console.log("Let s seet the table data array");
     console.log(tableData);
   }
 });
@@ -206,6 +208,21 @@ function verify(rowData) {
     verdict["path"] = "Error Accessing Path";
   }
 
-  rowData['note'] = verdict.domain + " " + verdict.path;
+  rowData["note"] = verdict.domain + " " + verdict.path;
   return verdict.domain + " " + verdict.path;
 }
+
+function writeToExcelFile() {
+  console.log(xlsx);
+  const newWB = xlsx.utils.book_new();
+  console.log("new wookbook");
+  console.log(newWB);
+  const newWS = xlsx.utils.json_to_sheet([{ "a-header": "a", "b-header": "b" }]);
+  console.log(newWS);
+
+  xlsx.utils.book_append_sheet((newWB, newWS, "New Data"))
+
+  xlsx.writeFile(newWB, "New Data File.xlsx");
+}
+
+writeToExcelFile();
