@@ -59,7 +59,7 @@ header {
 }
 
 header h1 {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   max-width: 100rem;
   margin-bottom: 2.5rem;
 
@@ -155,6 +155,8 @@ header p {
 .download-btn {
   background-color: #21b434;
 }
+
+
 
 /* ====================== result area style ========================= */
 /* ====================== ------------ ========================= */
