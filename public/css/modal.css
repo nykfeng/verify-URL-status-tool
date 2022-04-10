@@ -1,0 +1,86 @@
+.modal-popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  box-sizing: border-box;
+
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-popup-box {
+  width: 100%;
+  max-width: 600px;
+  min-height: 180px;
+  background: white;
+  font-size: 16px;
+
+  border: 2px solid #1a2f38;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  justify-content: space-between;
+
+  opacity: 1;
+  transform: scale(0.75);
+}
+
+.modal-popup-title {
+  background-color: #c93636;
+  padding: 5px 10px 5px 10px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 28px;
+}
+
+.modal-popup-message,
+.modal-popup_btn-box {
+  padding: 5px 10px 5px 10px;
+}
+
+.modal-popup_btn-box {
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  padding-right: 20px;
+}
+
+.confirm_button--ok,
+.confirm_button--cancel,
+.confirm_button--submit {
+  width: 100px;
+  font-size: 30px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.confirm_button--ok,
+.confirm_button--submit {
+  background-color: #46819b;
+  color: #fff;
+}
+
+.confirm_button--submit,
+.confirm_button--cancel {
+  width: 110px;
+}
+
+.stock-card-input {
+  width: 150px;
+  height: 35px;
+  font-size: 30px;
+  border: 2px solid #46819b;
+  border-radius: 5px;
+}
+
+.stock-card-input:focus {
+  outline: none;
+}
