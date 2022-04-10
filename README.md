@@ -10,4 +10,4 @@
 
 ## Application Interface
 
-![](screenshots/screenshot-1.png)
+![](screenshots/screenshot.png)
