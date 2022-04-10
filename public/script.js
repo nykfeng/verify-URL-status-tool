@@ -59,8 +59,11 @@ fileEl.addEventListener("change", function () {
 // start visiting each url
 visitBtn.addEventListener("click", async function () {
   let stopLoop = false;
-  // TODO throw error if the number of row is more than 500
+
   try {
+    if (!fileData) {
+      throw "No file was uploaded!";
+    }
     if (fileData.length > 0) {
       if (fileData.length > 500) {
         throw "Row number exceeded 500!";
