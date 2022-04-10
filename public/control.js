@@ -11,35 +11,37 @@ function changeTables(column, action) {
   let resultCol;
   if (column === "brandId") {
     exampleCol = exampleTable.querySelectorAll(".brandIdCol");
-    resultCol = resultTable.querySelector(".brandId");
+    resultCol = resultTable.querySelectorAll(".brandId");
   } else if (column === "brand") {
     exampleCol = exampleTable.querySelectorAll(".brandNameCol");
-    resultCol = resultTable.querySelector(".brand");
+    resultCol = resultTable.querySelectorAll(".brand");
   } else if (column === "brandUrl") {
     exampleCol = exampleTable.querySelectorAll(".brandUrlCol");
-    resultCol = resultTable.querySelector(".brandUrl");
+    resultCol = resultTable.querySelectorAll(".brandUrl");
   }
   exampleCol.forEach((row) => {
     row.style.display = action ? "table-cell" : "none";
   });
-  resultCol.style.display = action ? "inline-flex" : "none";
+  resultCol.forEach((row) => {
+    row.style.display = action ? "inline-flex" : "none";
+  });
 }
 
 // Callback functions for changing table columns
 function radioBtnAdjust(columns, element, property) {
-    // if it is already checked to true
-    if (element.getAttribute("checked") === "") {
-      element.checked = false;
-      element.removeAttribute("checked");
-      changeTables(property, false);
-      util.adjustColumn(columns, property);
-    } else {
-      element.checked = true;
-      element.setAttribute("checked", "");
-      changeTables(property, true);
-      util.adjustColumn(columns, property);
-    }
+  // if it is already checked to true
+  if (element.getAttribute("checked") === "") {
+    element.checked = false;
+    element.removeAttribute("checked");
+    changeTables(property, false);
+    util.adjustColumn(columns, property);
+  } else {
+    element.checked = true;
+    element.setAttribute("checked", "");
+    changeTables(property, true);
+    util.adjustColumn(columns, property);
   }
+}
 
 // Create table row for each row from the file
 function makeTableRow(row, index, columns) {

@@ -88,7 +88,7 @@ header p {
   background-color: #fff;
   font-size: 1.4rem;
   padding: 1rem;
-  gap: 2rem;
+  justify-content: space-between;
 }
 
 .format-description {
@@ -141,6 +141,7 @@ header p {
 
 .stop-visit-btn {
   background-color: #a10000;
+  display: none;
 }
 
 .main-btn:hover {

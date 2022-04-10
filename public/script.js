@@ -43,24 +43,36 @@ fileEl.addEventListener("change", function () {
       .catch((error) => {
         console.log(error);
         const message =
-          "Error while reading the file. Please make sure you select an Excel xlsx file.";
+          "Error while reading the file. Please make sure you select an Excel xlsx file with the correct columns.";
         errorHandling.modalMessage(message);
         errorHandling.removeModalBox();
       });
   } catch (error) {
     console.log("Encountered error: ", error);
+    const message =
+      "Error while reading the file. Please make sure you select an Excel xlsx file with the correct columns.";
+    errorHandling.modalMessage(message);
+    errorHandling.removeModalBox();
   }
 });
 
 // start visiting each url
 visitBtn.addEventListener("click", async function () {
+  let stopLoop = false;
   // TODO throw error if the number of row is more than 500
   try {
     if (fileData.length > 0) {
       if (fileData.length > 500) {
         throw "Row number exceeded 500!";
       }
+
+      stopBtn.style.display = "inline-block";
+      stopBtn.addEventListener("click", function () {
+        stopLoop = true;
+      });
+
       for (let i = 0; i < fileData.length; i++) {
+        if (stopLoop) break;
         let newRow = {};
         columns.forEach((col, index) => {
           newRow[col] = fileData[i][index];
@@ -69,6 +81,8 @@ visitBtn.addEventListener("click", async function () {
         await control.startVisitingUrl(tableData[i].brandUrl, i, tableData);
       }
 
+      stopBtn.style.display = "none";
+
       // after visiting each url, the download button will be available
       downloadBtn.addEventListener("click", function () {
         download.csv(tableData);
@@ -76,8 +90,7 @@ visitBtn.addEventListener("click", async function () {
     }
   } catch (error) {
     console.log("Encountered Error: ", error);
-    const message = "Error reading data!";
-    errorHandling.modalMessage(message);
+    errorHandling.modalMessage(error);
     errorHandling.removeModalBox();
   }
 });
