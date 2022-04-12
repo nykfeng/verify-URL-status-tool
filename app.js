@@ -9,10 +9,9 @@ const PORT = process.env.PORT || 5252;
 
 app.use(express.static("./public"));
 
-app.get("/url", async (req, res) => {
-  const url = "cozyboots.com";
-  res.json(await visit.get(url));
-});
+// app.get("/url", async (req, res) => {
+//   res.json(await visit.get(url));
+// });
 
 app.post("/url", async (req, res) => {
   const url = req.body.url;

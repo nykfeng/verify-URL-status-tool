@@ -35,6 +35,7 @@ fileEl.addEventListener("change", function () {
         // Remove the header
         data.shift();
 
+        // take the data from file input and store it into fileData
         fileData = data.map((row, index) => {
           control.makeTableRow(row, index, columns);
           return row;
@@ -85,6 +86,7 @@ visitBtn.addEventListener("click", async function () {
         try {
           await control.startVisitingUrl(tableData[i].brandUrl, i, tableData);
         } catch (error) {
+          console.log('Error in loop: ', error);
           continue;
         }
       }

@@ -16,14 +16,9 @@ async function get(url) {
     if (error.response) {
       console.log("response error -------------------------");
 
-      // console.log(util.inspect(error, {showHidden: false, depth: null, colors: true}))
-
       return responseStatus(error.response);
     } else if (error.request) {
       console.log("request error --------------------------");
-      console.log(error.request);
-      // console.log(util.inspect(error.request, {showHidden: false, depth: null, colors: true}));
-
 
       return requestStatus(error.request);
     } else {
@@ -43,7 +38,6 @@ function responseStatus(response) {
   status.url =
     (response.request?.host || response._currentRequest.res.host) +
     response.request?.path;
-  console.log(status);
   return status;
 }
 
@@ -54,7 +48,6 @@ function requestStatus(request) {
   status.message =
     request._currentRequest.res?.statusMessage || "Page Not Found";
   status.url = request._currentUrl;
-  console.log(status);
   return status;
 }
 

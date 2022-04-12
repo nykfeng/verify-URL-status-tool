@@ -161,7 +161,19 @@ async function sendURL(urlToVisit) {
 async function startVisitingUrl(url, index, tableData) {
   const element = document.querySelector(`[data-row="${index}"]`);
   setLoader(element);
-  const urlData = await sendURL(url);
+  
+  let urlData;
+
+  try {
+    urlData = await sendURL(url);
+  } catch (error) {
+    console.log('Error while accessing URL', error);
+    urlData = {
+      code: 404,
+      message: "Error While Accessing Page",
+      url: url
+    }
+  }
 
   // filling in the final data storage variable
   tableData[index]["code"] = urlData.code;
