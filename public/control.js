@@ -70,8 +70,7 @@ function setResult(element, data, tableData) {
   rowElement.statusMessageEl.innerHTML = data.message;
   rowElement.resultUrlEl.innerHTML = data.url;
   rowElement.resultUrlDomain.innerHTML = util.getDomain(data.url);
-  rowElement.resultNote.innerHTML =
-    data.code.toString()[0] === "4" ? "Page Not Found" : verify(tableData);
+  rowElement.resultNote.innerHTML = verify(tableData);
   setResultVerdictColor(rowElement.resultNote, rowElement.resultNote.innerHTML);
 }
 
@@ -98,6 +97,16 @@ function setResultVerdictColor(noteEl, verdict) {
 
 // Logic to verfiy final note
 function verify(rowData) {
+  // Error code 400 and 500 will return here
+  if (rowData.code.toString()[0] === "4") {
+    rowData["note"] = "Page Not Found";
+    return rowData["note"];
+  }
+  if (rowData.code.toString()[0] === "5") {
+    rowData["note"] = "Server Error";
+    return rowData["note"];
+  }
+
   const verdict = {};
   try {
     if (
@@ -132,7 +141,9 @@ function verify(rowData) {
 async function sendURL(urlToVisit) {
   const url = "/url";
   const data = new URLSearchParams();
-  for (const [key, value] of Object.entries({ url: urlToVisit })) {
+  for (const [key, value] of Object.entries({
+    url: util.addProtocol(urlToVisit),
+  })) {
     data.append(key, value);
   }
   const responseValue = await fetch(url, {
@@ -152,10 +163,12 @@ async function startVisitingUrl(url, index, tableData) {
   setLoader(element);
   const urlData = await sendURL(url);
 
+  // filling in the final data storage variable
   tableData[index]["code"] = urlData.code;
   tableData[index]["message"] = urlData.message;
   tableData[index]["landingUrl"] = urlData.url;
 
+  // filling in the table with data after visit
   setResult(element, urlData, tableData[index]);
 }
 

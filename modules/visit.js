@@ -21,6 +21,9 @@ async function get(url) {
       return responseStatus(error.response);
     } else if (error.request) {
       console.log("request error --------------------------");
+      console.log(error.request);
+      // console.log(util.inspect(error.request, {showHidden: false, depth: null, colors: true}));
+
 
       return requestStatus(error.request);
     } else {
@@ -47,9 +50,11 @@ function responseStatus(response) {
 function requestStatus(request) {
   const status = {};
 
-  status.code = request._currentRequest.res?.statusCode || '404';
-  status.message = request._currentRequest.res?.statusMessage || 'Page Not Found';
+  status.code = request._currentRequest.res?.statusCode || "404";
+  status.message =
+    request._currentRequest.res?.statusMessage || "Page Not Found";
   status.url = request._currentUrl;
+  console.log(status);
   return status;
 }
 

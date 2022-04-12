@@ -81,7 +81,12 @@ visitBtn.addEventListener("click", async function () {
           newRow[col] = fileData[i][index];
         });
         tableData.push(newRow);
-        await control.startVisitingUrl(tableData[i].brandUrl, i, tableData);
+        // if there was an error visiting one site, it should jump over one iteration and move to next
+        try {
+          await control.startVisitingUrl(tableData[i].brandUrl, i, tableData);
+        } catch (error) {
+          continue;
+        }
       }
 
       stopBtn.style.display = "none";

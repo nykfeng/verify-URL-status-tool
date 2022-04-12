@@ -17,11 +17,16 @@ function getUrlElements(element) {
 
 // Using the web API URL to get the domain name (hostname)
 function getDomain(url) {
+  const domain = new URL(addProtocol(url));
+  return domain.hostname.replace("www.", "");
+}
+
+// Add protocol to URL
+function addProtocol(url) {
   if (!url.includes("https://") && !url.includes("http://")) {
     url = "https://" + url;
   }
-  const domain = new URL(url);
-  return domain.hostname.replace("www.", "");
+  return url;
 }
 
 // Using the wbe API URL to extract the pathname
@@ -29,6 +34,7 @@ function getPath(url) {
   const fullUrl = new URL(url);
   return fullUrl.pathname;
 }
+
 
 // RegEx to validate if a URL format is correct
 function validateURL(str) {
@@ -61,6 +67,7 @@ function adjustColumn(columns, colToChange) {
 
 export default {
   adjustColumn,
+  addProtocol,
   getUrlElements,
   getDomain,
   getPath,
