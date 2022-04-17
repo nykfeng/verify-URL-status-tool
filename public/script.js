@@ -15,6 +15,7 @@ const downloadBtn = document.querySelector(".download-btn");
 // radio buttons
 const brandIdRadio = document.querySelector("#brandIdRadio");
 const brandNameRadio = document.querySelector("#brandNameRadio");
+const radioForm = document.querySelector(".radio-form");
 
 // initial data storage from importing the file
 let fileData;
@@ -86,7 +87,7 @@ visitBtn.addEventListener("click", async function () {
         try {
           await control.startVisitingUrl(tableData[i].brandUrl, i, tableData);
         } catch (error) {
-          console.log('Error in loop: ', error);
+          console.log("Error in loop: ", error);
           continue;
         }
       }
@@ -105,12 +106,34 @@ visitBtn.addEventListener("click", async function () {
   }
 });
 
-// radio button listener for brand ID
-brandIdRadio.addEventListener("click", function () {
-  control.radioBtnAdjust(columns, this, "brandId");
-});
+// // radio button listener for brand ID
+// brandIdRadio.addEventListener("click", function () {
+//   control.radioBtnAdjust(columns, this, "brandId");
+// });
 
-// radio button listener for brand name
-brandNameRadio.addEventListener("click", function () {
-  control.radioBtnAdjust(columns, this, "brand");
+// // radio button listener for brand name
+// brandNameRadio.addEventListener("click", function () {
+//   control.radioBtnAdjust(columns, this, "brand");
+// });
+
+// listener for radio button and label text for radio inputs
+radioForm.addEventListener("click", function (e) {
+  if (
+    e.target.classList.contains("radio-brandIdRadio") ||
+    e.target.classList.contains("radio-brandIdRadio-label")
+  ) {
+    // Have to click the radio button if the label was clicked
+    if (e.target.classList.contains("radio-brandIdRadio-label"))
+      brandIdRadio.click();
+    control.radioBtnAdjust(columns, brandIdRadio, "brandId");
+  }
+  if (
+    e.target.classList.contains("radio-brandNameRadio") ||
+    e.target.classList.contains("radio-brandNameRadio-label")
+  ) {
+    // Have to click the radio button if the label was clicked
+    if (e.target.classList.contains("radio-brandNameRadio-label"))
+      brandNameRadio.click();
+    control.radioBtnAdjust(columns, brandNameRadio, "brand");
+  }
 });

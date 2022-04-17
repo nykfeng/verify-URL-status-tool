@@ -60,13 +60,13 @@
 
             <div class="upload-action flex-column">
                 <p>Customize your Excel columns (Checked means included):</p>
-                <form>
-                    <input type="radio" id="brandIdRadio" name="column-headers-id" value="Brand ID" checked>
-                      <label for="html">Brand ID</label><br>
-                    <input type="radio" id="brandNameRadio" name="column-headers-name" value="Brand Name" checked>
-                      <label for="html">Brand Name</label><br>
-                    <input type="radio" id="brandUrlRadio" name="column-headers-url" value="Brand URL" checked>
-                      <label for="html">Brand URL (Must have)</label><br>
+                <form class="radio-form">
+                    <input type="radio" id="brandIdRadio" class="radio-brandIdRadio" name="column-headers-id" value="Brand ID" checked>
+                      <label class="radio-brandIdRadio-label" for="brandIdRadio">Brand ID</label><br>
+                    <input type="radio" id="brandNameRadio" class="radio-brandNameRadio" name="column-headers-name" value="Brand Name" checked>
+                      <label class="radio-brandNameRadio-label" for="brandNameRadio">Brand Name</label><br>
+                    <input type="radio" id="brandUrlRadio" class="radio-brandUrlRadio" name="column-headers-url" value="Brand URL" checked>
+                      <label class="radio-brandUrlRadio-label" for="brandUrlRadio">Brand URL (Must have)</label><br>
                 </form>
                 <form>
                     <input type="file" id="excel-File" name="filename">
